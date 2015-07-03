@@ -1,0 +1,44 @@
+/* screen.css */
+@CHARSET "UTF-8";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#main {
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-botton: 40px;
+  padding: 10px;
+  width: 780px;
+  background: #fff;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+#resultados, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  max-width: 780px;
+  margin: 2px;
+  padding: 5px;
+  text-align: center;
+}
+
+#resultados, tr:nth-child(even) {
+    background-color: #eee;
+    color: black;
+}
+
+#resultados, tr:nth-child(odd) {
+   background-color:#fff;
+   color: black;
+}
+
+#resultados, th  {
+    background-color: black;
+    color: white;
+}
