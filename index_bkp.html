@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Planilha Débito/Crédito</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" href="css/jquery-ui.min.css">
+	</head>
+	<body>
+		<script id="lancamentoTemplate" type="text/template">
+			<td><%= $.format.date( new Date( data ), 'dd/MM/yy' ) %></td>
+			<td>R$<%= new String(valor).replace('.', ',') %></td>
+			<td><%= descricao %></td>
+			<td><%= tipo %></td>
+			<td><button class="delete">Remover</button></td>
+		</script>
+	    <script src="js/lib/jquery-1.9.1.min.js"></script>
+        <script src="js/lib/jquery-ui.min.js"></script>
+        <script src="js/lib/jquery-dateFormat.js"></script>
+        <script src="js/lib/underscore.js"></script>
+        <script src="js/lib/backbone.js"></script>
+        
+		
+		<!-- Application Code -->
+		<script src="js/models/lancamento.js"></script>
+		<script src="js/collections/lancamentos.js"></script>
+		<script src="js/views/LancamentoView.js"></script>
+		<script src="js/views/MainView.js"></script>
+		<script src="js/app.js"></script>
+
+		<div id="main">
+			<form id="addLancamento" action="#">	
+				<div>
+					<fieldset>
+						<legend>Lançamento: </legend>
+						<div>
+							<label for="data">Data: </label>
+							<input id="data" type="text" size="10"/>
+							<span id="msg-data"></span>
+						</div>
+
+						<div>
+							<label for="valor">Valor: </label>
+							<input id="valor" type="text" placeholder="Insira um valor! Ex:100,00" />
+							<span id="msg-valor"></span>							
+						</div>
+						<br>
+						<div>
+							<label for="descricao">Descrição: </label>
+							<input id="descricao" type="text" placeholder="Insira a descrição!" size="50" />
+							<span id="msg-descricao"></span>
+						</div>
+						<div>
+							<label for="tipo">Tipo: </label>
+							<input id="tipo" name="tipo" type="radio" value="C" checked="checked"/>Crédito
+							<input id="tipo" name="tipo" type="radio" value="D" />Débito
+						</div>
+						<br>
+						<div>
+							<button id="add">Adicionar</button>
+							<span id="msg-form"></span>
+						</div>
+					</fieldset>
+				</div>
+			</form>
+			<a href="#" id="clear-filter">Clear Filter</a>
+	      	<br>	      	
+	      	<div id="lancamentos">
+	      		<table id="resultados">
+	      			<thead>
+	      				<tr>
+	      					<th>Data</th>
+	      					<th>Valor</th>
+	      					<th>Descrição</th>
+	      					<th>Tipo</th>
+	      					<th>Ação</th>
+	      				</tr>
+	      			</thead>
+	      			<tbody id="lanceRows">
+	      			</tbody>
+	      		</table>
+	      	</div>
+	    </div>
+	</body>
+</html>

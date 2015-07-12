@@ -45,9 +45,11 @@ var LancamentoModel = mongoose.model('Lancamento', Lancamento);
 /************************    End MongoDB    **********************/
 
 /************************      Routes      **********************/ 
+//Get all lancamentos
 appServer.get('/api/lancamentos', function(request, response) {
 	return LancamentoModel.find(function(err, lancamentos) {
 		if (!err) {
+            console.log(lancamentos);
 			return response.send(lancamentos);
 		} else {
 			return console.log(err);

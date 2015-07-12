@@ -14,5 +14,10 @@ app.Lancamentos = Backbone.Collection.extend({
 
 	getTotal: function() {
 		return this.reduce(function (memo, value) { return memo + value.getValor(); }, 0);
-	}
+	},
+
+	comparator: function(item) {
+		//desc order
+        return -(new Date(item.get('data')).getTime());
+    }
 });
