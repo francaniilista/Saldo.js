@@ -12,8 +12,11 @@ app.Lancamentos = Backbone.Collection.extend({
 		items = this.models;
 	},
 
-	getTotal: function() {
-		return this.reduce(function (memo, value) { return memo + value.getValor(); }, 0);
+	getSum: function() {
+		return this.reduce(
+			function (memo, value) { 
+				return memo + value.getValor(); 
+			}, 0);
 	},
 
 	comparator: function(item) {

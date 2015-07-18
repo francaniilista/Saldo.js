@@ -12,6 +12,10 @@ app.Lancamento = Backbone.Model.extend({
 		this.listenTo(this, 'invalid', function (model, error, options) {
 			console.log(model,error,options);
 		});
+		
+		if (this.get('tipo') === "D") {
+			this.set('valor', this.get('valor') * -1);
+		}
 	},
 
 	getValor: function() {

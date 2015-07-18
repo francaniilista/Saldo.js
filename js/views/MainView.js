@@ -8,16 +8,41 @@ app.MainView = Backbone.View.extend({
 	},
 
 	initialize: function (lancamentos) {
+		this.table = this.configureTable();
+		this.tableRows = $('#lanceRows');
 		this.collection = new app.Lancamentos(lancamentos);
-		this.table = $('#lanceRows');
 		this.collection.fetch({reset: true});
-		this.render();
-
+		
 		this.listenTo(this.collection, 'add', this.renderLancamento);
 		this.listenTo(this.collection, 'reset', this.render);
 
 		$('#valor').keyup(function () { 
 		    this.value = this.value.replace(/[^0-9\,]/g,'');
+		});
+
+		this.render();
+	},
+
+	configureTable: function() {
+		var that = this;
+		return $('#table_lancamentos').DataTable({
+			paging: false,
+			scrollY: 400,
+			orderClasses: false,
+			autoWidth: false,
+			info: false,
+			"language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.10.7/i18n/Portuguese-Brasil.json"
+            },
+            "columnDefs": [
+				{ "orderable": false, "targets": [4] },
+				{ "searchable": false, "targets": [4]}
+			],          	
+            "footerCallback": function ( row, data, start, end, display ) {
+            	var api = this.api();
+            	$(api.column(1).footer()).html('Total: R$'+ that.collection.getSum());
+
+            }
 		});
 	},
 
@@ -29,8 +54,8 @@ app.MainView = Backbone.View.extend({
 		var lancamentoView = new app.LancamentoView({
 			model: item
 		});
-
-		this.table.append(lancamentoView.render().el);
+		this.table.row.add(lancamentoView.render().el);
+		this.table.draw();
 	},
 
 	addLancamento: function( e ) {
@@ -81,7 +106,7 @@ app.MainView = Backbone.View.extend({
         		window.setTimeout(function() {
         			$('#msg-form').removeClass('bg-danger text-danger');
 					$('#msg-form').html('');
-				}, 3000);
+				}, 2000);
 
         		console.log('Erro ao salvar lançamento!');
         	}
@@ -94,7 +119,7 @@ app.MainView = Backbone.View.extend({
     		this.showErrors(lancamento.validationError);
     	}
 
-    	lancamento.off();
+		lancamento.off();
     	lancamento = null;
 	}, 
 
