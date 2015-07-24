@@ -14,6 +14,7 @@ app.MainView = Backbone.View.extend({
 		this.collection.fetch({reset: true});
 		
 		this.listenTo(this.collection, 'add', this.renderLancamento);
+		this.listenTo(this.collection, 'remove', this.calculateFooter);
 		this.listenTo(this.collection, 'reset', this.render);
 
 		$('#valor').keyup(function () { 
@@ -40,8 +41,7 @@ app.MainView = Backbone.View.extend({
 			],          	
             "footerCallback": function ( row, data, start, end, display ) {
             	var api = this.api();
-            	$(api.column(1).footer()).html('Total: R$'+ that.collection.getSum());
-
+            	$(api.column(1).footer()).html('Total: R$'+ that.collection.getSum().toFixed(2).replace('.', ','));
             }
 		});
 	},
@@ -148,5 +148,9 @@ app.MainView = Backbone.View.extend({
 		$('#addLancamento fieldset div').children('input').each(function (i, el) {
 			$(el).val('');
 		});
+	},
+
+	calculateFooter: function () {
+		$(this.table.column(1).footer()).html('Total: R$'+ this.collection.getSum().toFixed(2).replace('.', ','));
 	}
 });

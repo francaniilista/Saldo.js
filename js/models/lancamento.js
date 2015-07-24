@@ -13,7 +13,7 @@ app.Lancamento = Backbone.Model.extend({
 			console.log(model,error,options);
 		});
 		
-		if (this.get('tipo') === "D") {
+		if (this.get('tipo') === "D" && new Number(this.getValor()) > new Number(0)) {
 			this.set('valor', this.get('valor') * -1);
 		}
 	},

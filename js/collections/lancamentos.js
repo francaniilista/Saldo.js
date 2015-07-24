@@ -15,7 +15,7 @@ app.Lancamentos = Backbone.Collection.extend({
 	getSum: function() {
 		return this.reduce(
 			function (memo, value) { 
-				return memo + value.getValor(); 
+				return new Number(memo) +  new Number(value.getValor()); 
 			}, 0);
 	},
 
